@@ -2,7 +2,14 @@ resource "aws_vpc" "mod" {
   cidr_block = "${var.cidr}"
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support = "${var.enable_dns_support}"
-  tags { Name = "${var.name}" }
+  tags { 
+    Name = "${var.name}" 
+    Environment = "${var.tags.Environment}"
+    Owner = "${var.tags.Owner}"
+    Purpose = "${var.tags.Purpose}"
+    CostCenter = "${var.tags.CostCenter}"
+    Source = "${var.tags.Source}"
+    }
 }
 
 resource "aws_internet_gateway" "mod" {

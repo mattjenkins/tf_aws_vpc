@@ -11,3 +11,12 @@ variable "enable_dns_support" {
   description = "should be true if you want to use private DNS within the VPC"
   default = false
 }
+variable "tags"   { 
+    default {
+        Environment = ""
+        Owner = ""
+        Purpose = ""
+        CostCenter = ""
+        Source = ""
+    }
+}
