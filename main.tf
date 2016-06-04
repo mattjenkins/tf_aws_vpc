@@ -26,7 +26,14 @@ resource "aws_internet_gateway" "mod" {
 
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.mod.id}"
-  tags { Name = "${var.name}-public" }
+  tags { 
+    Name = "${var.name}-public"  
+    Environment = "${var.environment}"
+    Owner = "${var.owner}"
+    Purpose = "${var.purpose}"
+    CostCenter = "${var.costcenter}"
+    Source = "${var.source}"
+  }
 }
 
 resource "aws_route" "public_internet_gateway" {
@@ -37,7 +44,14 @@ resource "aws_route" "public_internet_gateway" {
 
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.mod.id}"
-  tags { Name = "${var.name}-private" }
+  tags { 
+    Name = "${var.name}-private" 
+    Environment = "${var.environment}"
+    Owner = "${var.owner}"
+    Purpose = "${var.purpose}"
+    CostCenter = "${var.costcenter}"
+    Source = "${var.source}"
+  }
 }
 
 resource "aws_subnet" "private" {
@@ -45,7 +59,14 @@ resource "aws_subnet" "private" {
   cidr_block = "${element(split(",", var.private_subnets), count.index)}"
   availability_zone = "${element(split(",", var.azs), count.index)}"
   count = "${length(compact(split(",", var.private_subnets)))}"
-  tags { Name = "${var.name}-private" }
+  tags { 
+    Name = "${var.name}-private"
+    Environment = "${var.environment}"
+    Owner = "${var.owner}"
+    Purpose = "${var.purpose}"
+    CostCenter = "${var.costcenter}"
+    Source = "${var.source}"
+  }
 }
 
 resource "aws_subnet" "public" {
@@ -53,8 +74,14 @@ resource "aws_subnet" "public" {
   cidr_block = "${element(split(",", var.public_subnets), count.index)}"
   availability_zone = "${element(split(",", var.azs), count.index)}"
   count = "${length(compact(split(",", var.public_subnets)))}"
-  tags { Name = "${var.name}-public" }
-
+  tags { 
+    Name = "${var.name}-public" 
+    Environment = "${var.environment}"
+    Owner = "${var.owner}"
+    Purpose = "${var.purpose}"
+    CostCenter = "${var.costcenter}"
+    Source = "${var.source}"
+  }
   map_public_ip_on_launch = true
 }
 
