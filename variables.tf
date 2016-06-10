@@ -1,9 +1,7 @@
+variable "aws_access_key" {default="AKIAIBWZBWPHOYOD5OTQ"}
+variable "aws_secret_key" {default="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"}
 
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-variable "aws_region" {
-  default = "us-east-1"
-}
+variable "aws_region" { }
 
 variable "name" { }
 variable "cidr" { }
@@ -18,7 +16,6 @@ variable "enable_dns_support" {
   description = "should be true if you want to use private DNS within the VPC"
   default = false
 }
-
 
 variable "environment" { default = "" }
 variable "owner" {default = ""}

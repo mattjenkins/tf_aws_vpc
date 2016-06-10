@@ -1,9 +1,8 @@
 provider "aws" {
-   access_key = "${var.aws_access_key}"
-   secret_key = "${var.aws_secret_key}"
-   region = "${var.aws_region}"
+    access_key = "${var.aws_access_key}"
+    secret_key = "${var.aws_secret_key}"
+    region = "${var.aws_region}"
 }
-
 
 
 resource "aws_vpc" "mod" {
@@ -26,14 +25,7 @@ resource "aws_internet_gateway" "mod" {
 
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.mod.id}"
-  tags { 
-    Name = "${var.name}-public"  
-    Environment = "${var.environment}"
-    Owner = "${var.owner}"
-    Purpose = "${var.purpose}"
-    CostCenter = "${var.costcenter}"
-    Source = "${var.source}"
-  }
+  tags { Name = "${var.name}-public" }
 }
 
 resource "aws_route" "public_internet_gateway" {
@@ -44,14 +36,7 @@ resource "aws_route" "public_internet_gateway" {
 
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.mod.id}"
-  tags { 
-    Name = "${var.name}-private" 
-    Environment = "${var.environment}"
-    Owner = "${var.owner}"
-    Purpose = "${var.purpose}"
-    CostCenter = "${var.costcenter}"
-    Source = "${var.source}"
-  }
+  tags { Name = "${var.name}-private" }
 }
 
 resource "aws_subnet" "private" {
@@ -59,14 +44,7 @@ resource "aws_subnet" "private" {
   cidr_block = "${element(split(",", var.private_subnets), count.index)}"
   availability_zone = "${element(split(",", var.azs), count.index)}"
   count = "${length(compact(split(",", var.private_subnets)))}"
-  tags { 
-    Name = "${var.name}-private"
-    Environment = "${var.environment}"
-    Owner = "${var.owner}"
-    Purpose = "${var.purpose}"
-    CostCenter = "${var.costcenter}"
-    Source = "${var.source}"
-  }
+  tags { Name = "${var.name}-private" }
 }
 
 resource "aws_subnet" "public" {
@@ -74,14 +52,8 @@ resource "aws_subnet" "public" {
   cidr_block = "${element(split(",", var.public_subnets), count.index)}"
   availability_zone = "${element(split(",", var.azs), count.index)}"
   count = "${length(compact(split(",", var.public_subnets)))}"
-  tags { 
-    Name = "${var.name}-public" 
-    Environment = "${var.environment}"
-    Owner = "${var.owner}"
-    Purpose = "${var.purpose}"
-    CostCenter = "${var.costcenter}"
-    Source = "${var.source}"
-  }
+  tags { Name = "${var.name}-public" }
+
   map_public_ip_on_launch = true
 }
 
